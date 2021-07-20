@@ -1,4 +1,3 @@
-  
 var Category = require("../models/category");
 var ComputerPart = require("../models/computerpart");
 var async = require("async");
