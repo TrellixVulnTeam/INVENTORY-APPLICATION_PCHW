@@ -8,7 +8,7 @@ Manufacturer.find()
     .exec(function (err, manufacturer_list) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('manufacturer_list', { title: 'manufacturer List', manufacturer_list: list_manufacturers });
+      res.render('Manufacturer_list', { title: 'manufacturer List', manufacturer_list: list_manufacturers });
     });
 
 };
