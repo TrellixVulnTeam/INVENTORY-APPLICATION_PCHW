@@ -55,13 +55,13 @@ exports.computerparts_detail = function (req, res, next) {
 };
 
 // Display Category create form on GET.
-exports.computerpart_create_get = function (req, res, next) {
+exports.computerparts_create_get = function (req, res, next) {
   res.render("computerparts_form", {
     title: "Create a Part",
     isUpdating: false,
   });
 };
-
+//t
 // Handle Category create on POST.
 exports.computerpart_create_post = [
   body("title")
@@ -86,7 +86,7 @@ exports.computerpart_create_post = [
       return;
     } else {
       // Data from form is valid.
-      // Create a Category object with escaped and trimmed data.
+      // Create a ComputerPart object with escaped and trimmed data.
       var category = new Category({
         title: req.body.title,
         description: req.body.description,
@@ -99,8 +99,8 @@ exports.computerpart_create_post = [
   },
 ];
 
-// Display Category delete form on GET.
-exports.category_delete_get = function (req, res, next) {
+// Display ComputerPart delete form on GET.
+exports.ComputerParts_delete_get = function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     let err = new Error("Invalid ObjectID");
     err.status = 404;
@@ -108,33 +108,29 @@ exports.category_delete_get = function (req, res, next) {
   }
   async.parallel(
     {
-      category: function (callback) {
+      Part: function (callback) {
         Category.findById(req.params.id).exec(callback);
-      },
-      category_parts: function (callback) {
-        ComputerPart.find({ category: req.params.id }).exec(callback);
       },
     },
     function (err, results) {
       if (err) return next(err);
 
-      if (results.category == null) {
-        let err = new Error("Category not found");
+      if (results.Part == null) {
+        let err = new Error("Part not found");
         err.status = 404;
         return next(err);
       }
 
-      res.render("category_delete", {
-        title: "Delete Category: " + results.category.title,
-        category: results.category,
-        category_parts: results.category_parts,
+      res.render("ComputerPart_delete", {
+        title: "Delete ComputerPart: " + results.ComputerPart.title,
+        ComputerPart: results.ComputerPart,
       });
     }
   );
 };
 
-// Handle Category delete on POST.
-exports.category_delete_post = function (req, res, next) {
+// Handle ComputerPart delete on POST.
+exports.ComputerPart_delete_post = function (req, res, next) {
   if (req.body.password != process.env.ADMIN_PASSWORD) {
     let err = new Error("The password you entered is incorrect.");
     err.status = 401;
@@ -142,68 +138,56 @@ exports.category_delete_post = function (req, res, next) {
   } else {
     async.parallel(
       {
-        category: function (callback) {
-          Category.findById(req.params.id).exec(callback);
-        },
-        category_parts: function (callback) {
-          ComputerPart.find({ category: req.params.id }).exec(callback);
+        ComputerPart: function (callback) {
+          ComputerPart.findById(req.params.id).exec(callback);
         },
       },
       function (err, results) {
         if (err) return next(err);
 
         if (results.category_parts.length > 0) {
-          res.render("category_delete", {
-            title: "Delete Category: " + results.category.title,
-            category: results.category,
-            category_parts: results.category_parts,
+          res.render("ComputerPart_delete", {
+            title: "Delete ComputerPart: " + results.ComputerPart.title,
+            ComputerPart: results.ComputerPart,
           });
           return;
-        } else {
-          Category.findByIdAndRemove(
-            req.body.categoryid,
-            function deleteCategory(err) {
-              if (err) return next(err);
-
-              res.redirect("/categories");
-            }
-          );
-        }
+          res.redirect("/computerparts_list");
+        }      
       }
     );
   }
 };
 
-// Display Category update form on GET.
-exports.category_update_get = function (req, res, next) {
+// Display ComputerPart update form on GET.
+exports.ComputerPart_update_get = function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     let err = new Error("Invalid ObjectID");
     err.status = 404;
     return next(err);
   }
-  Category.findById(req.params.id, function (err, category) {
+  ComputerPart.findById(req.params.id, function (err, part) {
     if (err) return next(err);
 
-    if (category == null) {
-      var err = new Error("Category not found");
+    if (part == null) {
+      var err = new Error("ComputerPart not found");
       err.status = 404;
       return next(err);
     }
     //Success
     res.render("category_form", {
-      title: "Update Category",
-      category: category,
+      title: "Update ComputerPart",
+      part: part,
       isUpdating: true,
     });
   });
 };
 
-// Handle Category update on POST.
-exports.category_update_post = [
+// Handle ComputerPart update on POST.
+exports.ComputerPart_update_post = [
   body("title")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("Category name must be specified"),
+    .withMessage("ComputerPart name must be specified"),
   body("description").optional({ checkFalsy: true }),
 
   (req, res, next) => {
@@ -214,29 +198,29 @@ exports.category_update_post = [
     } else {
       const errors = validationResult(req);
 
-      var category = new Category({
+      var  part = new ComputerPart({
         title: req.body.title,
         description: req.body.description,
         _id: req.params.id,
       });
 
       if (!errors.isEmpty()) {
-        res.render("category_form", {
-          title: "Update Category",
-          category: category,
+        res.render("computerparts_form", {
+          title: "Update ComputerPart",
+          part: part,
           isUpdating: true,
           errors: errors.array(),
         });
         return;
       } else {
-        Category.findByIdAndUpdate(
+        ComputerPart.findByIdAndUpdate(
           req.params.id,
-          category,
+          part,
           {},
-          function (err, thecategory) {
+          function (err, thepart) {
             if (err) return next(err);
 
-            res.redirect(thecategory.url);
+            res.redirect(thepart.url);
           }
         );
       }
