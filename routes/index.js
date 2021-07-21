@@ -5,9 +5,18 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.get('/categories', function(req, res, next) {
-  res.render('categories', { title: 'categories' });
+/* GET Categories Page page. */
+router.get('/Category', function(req, res, next) {
+  res.render('category_list', { title: 'Categories' });
 });
+/* GET ComputerParts List page. */
+router.get('/ComputerParts', function(req, res, next) {
+  res.render('computerparts_list', { title: 'ComputerParts List' });
+});
+/* GET ComputerParts Details page. */
+router.get('/ComputerParts-Detail', function(req, res, next) {
+  res.render('computerparts_Detail', { title: 'ComputerParts' });
+}); 
 router.get('/manufacturersList', function(req, res, next) {
   res.render('Manufacturer_list', { title: 'Manufacturer' });
 });
