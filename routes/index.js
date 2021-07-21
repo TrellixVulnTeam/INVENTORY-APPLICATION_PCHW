@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 router.get('/categories', function(req, res, next) {
   res.render('categories', { title: 'categories' });
 });
-router.get('/manufacturer', function(req, res, next) {
-  res.render('manufacturer', { title: 'manufacturer' });
+router.get('/manufacturersList', function(req, res, next) {
+  res.render('Manufacturer_list', { title: 'Manufacturer' });
 });
 module.exports = router;
