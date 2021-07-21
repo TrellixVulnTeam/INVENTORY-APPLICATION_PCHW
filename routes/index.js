@@ -21,7 +21,7 @@ router.get('/ComputerParts-Detail', function(req, res, next) {
   res.render('computerparts_Detail', { title: 'ComputerParts' });
 }); 
 router.get('/manufacturers-List', function(req, res, next) {
-  res.render('Manufacturer_list', { title: 'Manufacturer List' });
+  res.render('Manufacturer_list', { title: 'Manufacturer List', manufacturer_list });
 });
 router.get('/manufacturers-Detail', function(req, res, next) {
   res.render('Manufacturer_Detail', { title: 'Manufacturer Detail' });

@@ -63,7 +63,7 @@ exports.computerparts_create_get = function (req, res, next) {
 };
 //t
 // Handle Category create on POST.
-exports.computerpart_create_post = [
+exports.computerparts_create_post = [
   body("title")
     .trim()
     .isLength({ min: 1 })
@@ -100,7 +100,7 @@ exports.computerpart_create_post = [
 ];
 
 // Display ComputerPart delete form on GET.
-exports.ComputerParts_delete_get = function (req, res, next) {
+exports.computerparts_delete_get = function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     let err = new Error("Invalid ObjectID");
     err.status = 404;
@@ -130,7 +130,7 @@ exports.ComputerParts_delete_get = function (req, res, next) {
 };
 
 // Handle ComputerPart delete on POST.
-exports.ComputerPart_delete_post = function (req, res, next) {
+exports.computerparts_delete_post = function (req, res, next) {
   if (req.body.password != process.env.ADMIN_PASSWORD) {
     let err = new Error("The password you entered is incorrect.");
     err.status = 401;
@@ -159,7 +159,7 @@ exports.ComputerPart_delete_post = function (req, res, next) {
 };
 
 // Display ComputerPart update form on GET.
-exports.ComputerPart_update_get = function (req, res, next) {
+exports.computerparts_update_get = function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     let err = new Error("Invalid ObjectID");
     err.status = 404;
@@ -183,7 +183,7 @@ exports.ComputerPart_update_get = function (req, res, next) {
 };
 
 // Handle ComputerPart update on POST.
-exports.ComputerPart_update_post = [
+exports.computerparts_update_post = [
   body("title")
     .trim()
     .isLength({ min: 1 })

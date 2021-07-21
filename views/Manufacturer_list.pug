@@ -2,4 +2,11 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+
+  ul
+    each manuf in manufacturer_list
+      li
+        #{manuf.Name}
+
+    else
+      li There are no manufacturer.
