@@ -2,8 +2,8 @@ var Category = require("../models/category");
 var ComputerPart = require("../models/computerpart");
 var async = require("async");
 
-const { body, validationResult } = require("express-validator/check");
-const { sanitizeBody, sanitize } = require("express-validator/filter");
+const { body, validationResult } = require("express-validator");
+const { sanitizeBody, sanitize } = require("express-validator");
 
 var mongoose = require("mongoose");
 
