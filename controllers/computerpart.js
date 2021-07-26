@@ -64,15 +64,29 @@ exports.computerparts_create_get = function (req, res, next) {
 //t
 // Handle Category create on POST.
 exports.computerparts_create_post = [
-  body("title")
+  body("Name")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("Category name must be specified"),
+    .withMessage("Computerparts name must be specified"),
   body("description").optional({ checkFalsy: true }),
-
-  sanitize("title").escape(),
+  body("Price")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Computerparts price must be specified"),
+  body("Manufacturer")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Computerparts name must be specified"),
+  sanitize("Name").escape(),
   sanitize("description").escape(),
-
+  /*
+Name: { type: string, required: true, maxLength: 100 },
+ Description: { type: string, required: true, maxLength: 100 }
+ Instock: {type: boolean, required: true }
+ Price: { type: string, required: true, maxLength: 100 },
+ Category: [{type: Schema.Types.ObjectId, ref: 'Category'}]
+ Manufacturer: {type: Schema.Types.ObjectId, ref: 'Manufacturer', required: true},
+ */
   (req, res, next) => {
     const errors = validationResult(req);
 
