@@ -3,11 +3,10 @@ var router = express.Router();
 var category_controller = require('../controllers/category');
 var computerpart_controller = require('../controllers/computerpart');
 var manufacturer_controller = require('../controllers/manufacturer');
-var book_instance_controller = require('../controllers/bookinstanceController');
 /// BOOK ROUTES ///
 
 // GET catalog home page.
-router.get('/', book_controller.index);
+router.get('/', computerpart_controller.index);
 
 // GET request for creating a ComputerPart. NOTE This must come before routes that display ComputerPart (uses id).
 router.get('/computerparts/create', computerparts_controller.computerparts_create_get);
@@ -28,10 +27,10 @@ router.get('/computerparts/:id/update', computerparts_controller.computerparts_u
 router.post('/computerparts/:id/update', computerparts_controller.computerparts_update_post);
 
 // GET request for one ComputerPart.
-router.get('/computerparts/:id', computerparts_controller.book_detail);
+router.get('/computerparts/:id', computerparts_controller.computerparts_detail);
 ComputerPart
 // GET request for list of all ComputerPart items.
-router.get('/computerparts', computerparts_controller.book_list);
+router.get('/computerparts', computerparts_controller.computerparts_list);
 
 /// manufacturer ROUTES ///
 
