@@ -5,7 +5,6 @@ var computerparts_controller = require('../controllers/computerpart');
 var manufacturer_controller = require('../controllers/manufacturer');
 /// BOOK ROUTES ///
 
-
 // GET request for creating a ComputerPart. NOTE This must come before routes that display ComputerPart (uses id).
 router.get('/computerparts/create', computerparts_controller.computerparts_create_get);
 

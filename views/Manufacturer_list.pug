@@ -5,8 +5,7 @@ block content
 
   ul
     each manuf in manufacturer_list
-      li
-        #{manuf.Name}
+      li= manuf.Name
 
     else
       li There are no manufacturer.
