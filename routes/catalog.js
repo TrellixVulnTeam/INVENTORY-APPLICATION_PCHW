@@ -4,7 +4,11 @@ var category_controller = require('../controllers/category');
 var computerparts_controller = require('../controllers/computerpart');
 var manufacturer_controller = require('../controllers/manufacturer');
 /// BOOK ROUTES ///
-
+/* GET home page. */
+router.get('/catalog', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+/*
 // GET request for creating a ComputerPart. NOTE This must come before routes that display ComputerPart (uses id).
 router.get('/computerparts/create', computerparts_controller.computerparts_create_get);
 
@@ -28,7 +32,7 @@ router.get('/computerparts/:id', computerparts_controller.computerparts_detail);
 
 // GET request for list of all ComputerPart items.
 router.get('/computerparts', computerparts_controller.computerparts_list);
-
+*/
 /// manufacturer ROUTES ///
 //We have not handled these controllers yet so comment them out
 /*
