@@ -7,14 +7,14 @@ const { sanitizeBody, sanitize } = require("express-validator");
 
 var mongoose = require("mongoose");
 
-// Display list of all Categorys.
+// Display list of all ComputerPart.
 exports.computerparts_list = function (req, res, next) {
-  Category.find().exec(function (err, list_categories) {
+  ComputerPart.find().exec(function (err, list_computerparts) {
     if (err) return next(err);
 
     res.render("computerparts_list", {
       title: "All computerpart",
-      category_list: list_categories,
+      computerparts_list: list_computerparts,
     });
   });
 };

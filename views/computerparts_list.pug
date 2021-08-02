@@ -2,4 +2,10 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+
+  ul
+    each part in computerparts_list
+      li= part.Name
+
+    else
+      li There are no computerparts.

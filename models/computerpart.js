@@ -17,3 +17,4 @@ price
 category
 manufacturer
 */
+module.exports = mongoose.model("ComputerPart", ComputerPartSchema);

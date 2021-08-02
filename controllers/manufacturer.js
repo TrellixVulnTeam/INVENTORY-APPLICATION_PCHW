@@ -1,4 +1,3 @@
-  
 var Manufacturer = require('../models/manufacturer');
 var async = require("async");
 var mongoose = require("mongoose");

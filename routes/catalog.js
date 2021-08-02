@@ -29,10 +29,10 @@ router.post('/computerparts/:id/update', computerparts_controller.computerparts_
 
 // GET request for one ComputerPart.
 router.get('/computerparts/:id', computerparts_controller.computerparts_detail);
-
+*/
 // GET request for list of all ComputerPart items.
 router.get('/computerparts', computerparts_controller.computerparts_list);
-*/
+/*
 /// manufacturer ROUTES ///
 //We have not handled these controllers yet so comment them out
 /*
