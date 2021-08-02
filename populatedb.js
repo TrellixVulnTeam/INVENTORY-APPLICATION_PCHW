@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 console.log(
-  "This script populates some test components, manufacturers, and categories to the pc_part_planner database."
+  "This script populates some test components, manufacturers, and categories to the inventory Application database."
 );
 
 // Get arguments passed on command line
