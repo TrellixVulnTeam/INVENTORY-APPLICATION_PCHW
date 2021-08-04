@@ -19,39 +19,32 @@ exports.category_list = function (req, res, next) {
   });
 };
 
-// Display detail page for a specific Category.
-exports.category_detail = function (req, res, next) {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    let err = new Error("Invalid ObjectID");
-    err.status = 404;
-    return next(err);
-  }
-  async.parallel(
-    {
-      category: function (callback) {
-        Category.findById(req.params.id).exec(callback);
-      },
-      category_parts: function (callback) {
-        ComputerPart.find({ category: req.params.id })
-          .populate("category")
-          .populate("manufacturer")
-          .exec(callback);
-      },
-    },
-    function (err, results) {
-      if (err) return next(err);
-      if (results.category == null) {
-        var err = new Error("Category not found");
-        err.status = 404;
-        return next(err);
-      }
-      res.render("category_detail", {
-        title: "Choose " + results.category.title + " - PCPartPlanner",
-        category: results.category,
-        category_parts: results.category_parts,
-      });
-    }
-  );
+// Display detail page for a specific Genre.
+exports.category_detail = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.id);
+
+    async.parallel({
+        category: function(callback) {
+            Category.findById(req.params.id)
+              .exec(callback);
+        },
+
+        Category_parts: function(callback) {
+            ComputerPart.find({ 'category': req.params.id })
+              .exec(callback);
+        },
+
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.category==null) { // No results.
+            var err = new Error('Category not found');
+            err.status = 404;
+            return next(err);
+        }
+        // Successful, so render
+        res.render('category_detail', { title: 'Category Detail', category: results.category, category_parts: results.category_parts } );
+    });
+
 };
 
 // Display Category create form on GET.
