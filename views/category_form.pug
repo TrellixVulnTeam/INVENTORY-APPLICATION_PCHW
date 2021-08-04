@@ -2,4 +2,12 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  form(method='POST' action='')
+    div.form-group
+      label(for='category_title') Category Title:
+      input#category_title.form-control(type='text' placeholder='Category Title' name='category_title' required='true')
+    div.form-group
+      label(for='description') Description:
+      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===book ? '' : book.description) required='true')
+      
+    button.btn.btn-primary(type='submit') Submit
