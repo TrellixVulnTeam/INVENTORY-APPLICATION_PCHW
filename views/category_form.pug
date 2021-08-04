@@ -4,10 +4,10 @@ block content
   h1= title
   form(method='POST' action='')
     div.form-group
-      label(for='category_title') Category Title:
-      input#category_title.form-control(type='text' placeholder='Category Title' name='category_title' required='true')
+      label(for='title') Category Title:
+      input#title.form-control(type='text' placeholder='Category Title' name='title' required='true')
     div.form-group
       label(for='description') Description:
-      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===book ? '' : book.description) required='true')
-      
+      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===category ? '' : category.description) required='true')
+
     button.btn.btn-primary(type='submit') Submit

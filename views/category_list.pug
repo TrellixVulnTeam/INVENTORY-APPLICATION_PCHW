@@ -5,8 +5,8 @@ block content
 
   ul
     each categ in category_list
-      li= categ.title
-      p= categ.description
-
+       li
+        a(href=categ.url) #{categ.title}
+        |  (#{categ.description})
     else
       li There are no categories.
