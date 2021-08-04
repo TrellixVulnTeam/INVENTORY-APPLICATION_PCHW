@@ -5,7 +5,7 @@ var computerparts_controller = require('../controllers/computerpart');
 var manufacturer_controller = require('../controllers/manufacturer');
 /// BOOK ROUTES ///
 /* GET home page. */
-router.get('/catalog', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 /*
@@ -32,14 +32,14 @@ router.get('/computerparts/:id', computerparts_controller.computerparts_detail);
 */
 // GET request for list of all ComputerPart items.
 router.get('/computerparts', computerparts_controller.computerparts_list);
-
+/*
 /// manufacturer ROUTES ///
 //We have not handled these controllers yet so comment them out
-
+/*
 // GET request for creating manufacturer. NOTE This must come before route for id (i.e. display manufacturer).
-/*
+
 router.get('/manufacturer/create', manufacturer_controller.manufacturer_create_get);
-/*
+
 // POST request for creating Manufacturer.
 router.post('/manufacturer/create', manufacturer_controller.manufacturer_create_post);
 
@@ -54,15 +54,15 @@ router.get('/manufacturer/:id/update', manufacturer_controller.manufacturer_upda
 
 // POST request to update Manufacturer.
 router.post('/manufacturer/:id/update', manufacturer_controller.manufacturer_update_post);
-*/
+
 // GET request for one Manufacturer.
 router.get('/manufacturer/:id', manufacturer_controller.manufacturer_detail);
-
+*/
 // GET request for list of all Manufacturer.
 router.get('/manufacturer', manufacturer_controller.manufacturer_list);
 
 /// Category ROUTES ///
-/*
+
 // GET request for creating a Category. NOTE This must come before route that displays Category (uses id).
 router.get('/category/create', category_controller.category_create_get);
 
@@ -83,7 +83,7 @@ router.post('/category/:id/update', category_controller.category_update_post);
 
 // GET request for one Category.
 router.get('/category/:id', category_controller.category_detail);
-*/
+
 // GET request for list of all Category.
 router.get('/category', category_controller.category_list);
 
