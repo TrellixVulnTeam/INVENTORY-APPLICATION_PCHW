@@ -1,5 +1,25 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  h1 Category: #{category.title}
+  p  Description: #{category.description}
+
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 Parts
+
+    dl
+      each part in category_parts
+        dt
+          a(href=part.url) #{part.Name}
+        dd #{part.Description}
+
+      else
+        p This category has no parts.
+  hr
+  p
+    a(href=category.url+'/delete') Delete category
+    br
+    br
+    a(href=category.url+'/update') Update category

@@ -42,7 +42,7 @@ exports.category_detail = function(req, res, next) {
             return next(err);
         }
         // Successful, so render
-        res.render('category_detail', { title: 'Category Detail', category: results.category, category_parts: results.category_parts } );
+        res.render('category_detail', { title: 'Category Detail', category: results.category, category_parts: results.Category_parts } );
     });
 
 };
