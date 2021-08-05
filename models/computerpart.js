@@ -17,4 +17,7 @@ price
 category
 manufacturer
 */
+ComputerPartSchema.virtual("url").get(function () {
+  return "/catalog/computerparts/" + this._id;
+});
 module.exports = mongoose.model("ComputerPart", ComputerPartSchema);
