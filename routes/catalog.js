@@ -8,13 +8,13 @@ var manufacturer_controller = require('../controllers/manufacturer');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-/*
+
 // GET request for creating a ComputerPart. NOTE This must come before routes that display ComputerPart (uses id).
 router.get('/computerparts/create', computerparts_controller.computerparts_create_get);
 
 // POST request for creating ComputerPart.
 router.post('/computerparts/create', computerparts_controller.computerparts_create_post);
-
+/*
 // GET request to delete ComputerPart.
 router.get('/computerparts/:id/delete', computerparts_controller.computerparts_delete_get);
 
@@ -32,14 +32,14 @@ router.get('/computerparts/:id', computerparts_controller.computerparts_detail);
 */
 // GET request for list of all ComputerPart items.
 router.get('/computerparts', computerparts_controller.computerparts_list);
-/*
+
 /// manufacturer ROUTES ///
 //We have not handled these controllers yet so comment them out
 /*
 // GET request for creating manufacturer. NOTE This must come before route for id (i.e. display manufacturer).
 
 router.get('/manufacturer/create', manufacturer_controller.manufacturer_create_get);
-
+/*
 // POST request for creating Manufacturer.
 router.post('/manufacturer/create', manufacturer_controller.manufacturer_create_post);
 
