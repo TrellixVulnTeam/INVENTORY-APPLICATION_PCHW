@@ -101,6 +101,7 @@ Name: { type: string, required: true, maxLength: 100 },
     } else {
       // Data from form is valid.
       // Create a ComputerPart object with escaped and trimmed data.
+     
       var category = new Category({
         title: req.body.title,
         description: req.body.description,

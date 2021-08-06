@@ -8,6 +8,11 @@ block content
       input#name.form-control(type='text' placeholder='Computer Parts Name' name='name' required='true')
     div.form-group
       label(for='description') Description:
-      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : computerpart.Description) required='true')
-
+      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : category.description) required='true')
+    div.form-group
+      label(for='category') Category:
+      input#category.form-control(type='text', placeholder='Category' name='category' required='true')
+    div.form-group
+      label(for='category') Manufacturer:
+      input#category.form-control(type='text', placeholder='Category' name='category' required='true')
     button.btn.btn-primary(type='submit') Submit
