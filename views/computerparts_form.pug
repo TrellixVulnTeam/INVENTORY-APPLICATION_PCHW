@@ -17,8 +17,11 @@ block content
           else
             option(value=manufact._id) #{manufact.Name}
     div.form-group
-      label(for='summary') Summary:
-      input#summary.form-control(type='textarea', placeholder='Summary' name='summary' value=(undefined===computerpart ? '' : computerpart.summary) required='true')
+      label(for='description') Description:
+      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : computerpart.Description) required='true')
+    div.form-group
+      label(for='price') Price:
+      input#price.form-control(type='text', placeholder='Price' name='price' value=(undefined===computerpart ? '' : computerpart.Price) required='true')
     div.form-group
       label Categories:
       div
