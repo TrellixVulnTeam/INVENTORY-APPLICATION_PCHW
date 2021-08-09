@@ -1,5 +1,6 @@
 var Category = require("../models/category");
 var ComputerPart = require("../models/computerpart");
+var Manufacturer = require("../models/manufacturer");
 var async = require("async");
 
 const { body, validationResult } = require("express-validator");
@@ -9,6 +10,7 @@ var mongoose = require("mongoose");
 
 // Display list of all ComputerPart.
 exports.computerparts_list = function (req, res, next) {
+  
   ComputerPart.find().exec(function (err, list_computerparts) {
     if (err) return next(err);
 
@@ -56,9 +58,29 @@ exports.computerparts_detail = function (req, res, next) {
 
 // Display Category create form on GET.
 exports.computerparts_create_get = function (req, res, next) {
+  async.parallel({
+        Category_list: function(callback) {
+            .find({ 'category': req.params.id })
+              .exec(callback);
+        },
+
+        Manufacturer_list: function(callback) {
+            ComputerPart.find({ 'category': req.params.id })
+              .exec(callback);
+        },
+
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.category==null) { // No results.
+            var err = new Error('Category not found');
+            err.status = 404;
+            return next(err);
+        }
   res.render("computerparts_form", {
     title: "Create a Part",
     isUpdating: false,
+    list_categories: Category_list,
+    list_manufacturers: Manufacturer_list
   });
 };
 //t

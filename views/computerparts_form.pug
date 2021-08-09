@@ -11,7 +11,9 @@ block content
       input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : category.description) required='true')
     div.form-group
       label(for='category') Category:
-      input#category.form-control(type='text', placeholder='Category' name='category' required='true')
+      select#category.form-control(type='select', placeholder='Select category' name='category' required='true' )
+        for categ in Category_list
+          option(value= categ.id) #{categ.title}
     div.form-group
       label(for='category') Manufacturer:
       input#category.form-control(type='text', placeholder='Category' name='category' required='true')
