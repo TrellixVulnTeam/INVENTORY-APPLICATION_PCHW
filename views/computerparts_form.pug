@@ -2,19 +2,32 @@ extends layout
 
 block content
   h1= title
+
   form(method='POST' action='')
     div.form-group
-      label(for='name') Computer Parts Name:
-      input#name.form-control(type='text' placeholder='Computer Parts Name' name='name' required='true')
+      label(for='title') Title:
+      input#title.form-control(type='text', placeholder='Name of computer part' name='title' required='true' value=(undefined===computerpart ? '' : computerpart.Name) )
     div.form-group
-      label(for='description') Description:
-      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : category.description) required='true')
+      label(for='manufacturer') Manufacturers:
+      select#manufacturer.form-control(type='select', placeholder='Select manufacturer' name='manufacturer' required='true' )
+        for manufact in Manufacturers
+          if book
+            option(value=manufact._id selected=(manufact._id.toString()===computerpart.manufact._id.toString() ? 'selected' : false) ) #{manufact.Name}
+          else
+            option(value=manufact._id) #{manufact.Name}
     div.form-group
-      label(for='category') Category:
-      select#category.form-control(type='select', placeholder='Select category' name='category' required='true' )
-        for categ in Category_list
-          option(value= categ.id) #{categ.title}
+      label(for='summary') Summary:
+      input#summary.form-control(type='textarea', placeholder='Summary' name='summary' value=(undefined===computerpart ? '' : computerpart.summary) required='true')
     div.form-group
-      label(for='category') Manufacturer:
-      input#category.form-control(type='text', placeholder='Category' name='category' required='true')
+      label Categories:
+      div
+        for categ in Categories
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox', name='Categories', id=categ._id, value=categ._id, checked=categ.checked )
+            label(for=categ._id) #{categ.title}
     button.btn.btn-primary(type='submit') Submit
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

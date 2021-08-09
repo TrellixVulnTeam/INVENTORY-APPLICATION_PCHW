@@ -10,7 +10,7 @@ var mongoose = require("mongoose");
 
 // Display list of all ComputerPart.
 exports.computerparts_list = function (req, res, next) {
-  
+
   ComputerPart.find().exec(function (err, list_computerparts) {
     if (err) return next(err);
 
@@ -56,32 +56,22 @@ exports.computerparts_detail = function (req, res, next) {
   );
 };
 
-// Display Category create form on GET.
-exports.computerparts_create_get = function (req, res, next) {
-  async.parallel({
-        Category_list: function(callback) {
-            .find({ 'category': req.params.id })
-              .exec(callback);
-        },
+// Display book create form on GET.
+exports.computerparts_create_get = function(req, res, next) {
 
-        Manufacturer_list: function(callback) {
-            ComputerPart.find({ 'category': req.params.id })
-              .exec(callback);
+    // Get all manufacturers and genres, which we can use for adding to our book.
+    async.parallel({
+        Manufacturers: function(callback) {
+            Manufacturer.find(callback);
         },
-
+        Categories: function(callback) {
+            Categories.find(callback);
+        },
     }, function(err, results) {
         if (err) { return next(err); }
-        if (results.category==null) { // No results.
-            var err = new Error('Category not found');
-            err.status = 404;
-            return next(err);
-        }
-  res.render("computerparts_form", {
-    title: "Create a Part",
-    isUpdating: false,
-    list_categories: Category_list,
-    list_manufacturers: Manufacturer_list
-  });
+        res.render('book_form', { title: 'Create Book', Manufacturers: results.Manufacturers, Categories: results.Categories });
+    });
+
 };
 //t
 // Handle Category create on POST.
