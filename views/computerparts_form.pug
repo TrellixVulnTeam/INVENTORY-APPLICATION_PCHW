@@ -9,10 +9,10 @@ block content
       input#title.form-control(type='text', placeholder='Name of computer part' name='title' required='true' value=(undefined===computerpart ? '' : computerpart.Name) )
     div.form-group
       label(for='manufacturer') Manufacturers:
-      select#manufacturer.form-control(type='select', placeholder='Select manufacturer' name='manufacturer' required='true' )
+      select#manufacturer.form-control(type='select', placeholder='Select Manufacturer' name='manufacturer' required='true' )
         - Manufacturers.sort(function(a, b) {let textA = a.Name.toUpperCase(); let textB = b.Name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         for manufact in Manufacturers
-          if book
+          if computerpart
             option(value=manufact._id selected=(manufact._id.toString()===computerpart.manufact._id.toString() ? 'selected' : false) ) #{manufact.Name}
           else
             option(value=manufact._id) #{manufact.Name}
