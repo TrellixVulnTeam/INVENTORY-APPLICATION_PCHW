@@ -10,6 +10,7 @@ block content
     div.form-group
       label(for='manufacturer') Manufacturers:
       select#manufacturer.form-control(type='select', placeholder='Select manufacturer' name='manufacturer' required='true' )
+        - Manufacturers.sort(function(a, b) {let textA = a.Name.toUpperCase(); let textB = b.Name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         for manufact in Manufacturers
           if book
             option(value=manufact._id selected=(manufact._id.toString()===computerpart.manufact._id.toString() ? 'selected' : false) ) #{manufact.Name}

@@ -65,11 +65,11 @@ exports.computerparts_create_get = function(req, res, next) {
             Manufacturer.find(callback);
         },
         Categories: function(callback) {
-            Categories.find(callback);
+            Category.find(callback);
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('book_form', { title: 'Create Book', Manufacturers: results.Manufacturers, Categories: results.Categories });
+        res.render('computerparts_form', { title: 'Create Book', Manufacturers: results.Manufacturers, Categories: results.Categories });
     });
 
 };
