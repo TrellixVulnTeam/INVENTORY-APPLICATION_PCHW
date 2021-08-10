@@ -24,22 +24,22 @@ exports.manufacturer_create_get = function(req, res, next) {
   });
 }
 // Handle Manufacturer create on POST.
-exports.Manufacturer_create_post = [
+exports.manufacturer_create_post = [
   body("Name")
     .trim()
     .isLength({ min: 1 })
     .withMessage("Manufacturer name must be specified"),
   body("Description").optional({ checkFalsy: true }),
 
-  sanitize("title").escape(),
-  sanitize("description").escape(),
+  sanitize("Name").escape(),
+  sanitize("Description").escape(),
 
   (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.render("category_form", {
-        title: "Create a category",
+      res.render("Manufacturer_form", {
+        title: "Create a Manufacturer",
         category: req.body,
         isUpdating: false,
         errors: errors.array(),
@@ -48,13 +48,13 @@ exports.Manufacturer_create_post = [
     } else {
       // Data from form is valid.
       // Create a Category object with escaped and trimmed data.
-      var category = new Category({
-        title: req.body.title,
-        description: req.body.description,
+      var manufacturer = new Manufacturer({
+        Name: req.body.title,
+        Description: req.body.description,
       });
-      category.save(function (err) {
+      Manufacturer.save(function (err) {
         if (err) return next(err);
-        res.redirect(category.url);
+        res.redirect(Manufacturer.url);
       });
     }
   },
