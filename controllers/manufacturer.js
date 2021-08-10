@@ -52,9 +52,9 @@ exports.manufacturer_create_post = [
         Name: req.body.title,
         Description: req.body.description,
       });
-      Manufacturer.save(function (err) {
+      manufacturer.save(function (err) {
         if (err) return next(err);
-        res.redirect(Manufacturer.url);
+        res.redirect(manufacturer.url);
       });
     }
   },
