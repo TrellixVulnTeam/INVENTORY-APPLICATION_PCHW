@@ -16,3 +16,46 @@ exports.manufacturer_list = function (req, res, next) {
     });
   });
 };
+
+exports.manufacturer_create_get = function(req, res, next) {
+  res.render("Manufacturer_form", {
+    title: "Create a Manufacturer",
+    isUpdating: false,
+  });
+}
+// Handle Manufacturer create on POST.
+exports.Manufacturer_create_post = [
+  body("Name")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Manufacturer name must be specified"),
+  body("Description").optional({ checkFalsy: true }),
+
+  sanitize("title").escape(),
+  sanitize("description").escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("category_form", {
+        title: "Create a category",
+        category: req.body,
+        isUpdating: false,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      // Create a Category object with escaped and trimmed data.
+      var category = new Category({
+        title: req.body.title,
+        description: req.body.description,
+      });
+      category.save(function (err) {
+        if (err) return next(err);
+        res.redirect(category.url);
+      });
+    }
+  },
+];

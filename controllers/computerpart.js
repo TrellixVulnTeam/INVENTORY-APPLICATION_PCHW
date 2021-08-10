@@ -69,7 +69,7 @@ exports.computerparts_create_get = function(req, res, next) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('computerparts_form', { title: 'Create Book', Manufacturers: results.Manufacturers, Categories: results.Categories });
+        res.render('computerparts_form', { title: 'Create Computer Parts', Manufacturers: results.Manufacturers, Categories: results.Categories });
     });
 
 };
