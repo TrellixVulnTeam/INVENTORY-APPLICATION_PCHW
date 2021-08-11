@@ -16,7 +16,6 @@ exports.manufacturer_list = function (req, res, next) {
     });
   });
 };
-
 exports.manufacturer_create_get = function(req, res, next) {
   res.render("Manufacturer_form", {
     title: "Create a Manufacturer",
@@ -25,7 +24,7 @@ exports.manufacturer_create_get = function(req, res, next) {
 }
 // Handle Manufacturer create on POST.
 exports.manufacturer_create_post = [
-  body("name")
+  body("title")
     .trim()
     .isLength({ min: 1 })
     .withMessage("Manufacturer name must be specified"),
@@ -33,7 +32,7 @@ exports.manufacturer_create_post = [
   .isLength({ min: 1, max: 100 })
   .optional({ checkFalsy: true }),
 
-  sanitize("name").escape(),
+  sanitize("title").escape(),
   sanitize("description").escape(),
 
   (req, res, next) => {
@@ -51,12 +50,11 @@ exports.manufacturer_create_post = [
       // Data from form is valid.
       // Create a Manufacturer object with escaped and trimmed data.
       var manufacturer = new Manufacturer({
-        Name: req.body.name,
+        Name: req.body.title,
         Description: req.body.description,
       });
       manufacturer.save(function (err) {
         if (err) return next(err);
-        
         res.redirect(manufacturer.url);
       });
     }
@@ -64,11 +62,8 @@ exports.manufacturer_create_post = [
 ];
 // Display detail page for a specific Manufacturer.
 exports.manufacturer_detail = function (req, res, next) {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    let err = new Error("Invalid ObjectID");
-    err.status = 404;
-    return next(err);
-  }
+  var id = mongoose.Types.ObjectId(req.params.id);
+  
   async.parallel(
     {
       manufacturer: function(callback) {
