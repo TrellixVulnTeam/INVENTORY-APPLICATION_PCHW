@@ -29,7 +29,9 @@ exports.manufacturer_create_post = [
     .trim()
     .isLength({ min: 1 })
     .withMessage("Manufacturer name must be specified"),
-  body("description").optional({ checkFalsy: true }),
+  body("description")
+  .isLength({ min: 1, max: 100 })
+  .optional({ checkFalsy: true }),
 
   sanitize("name").escape(),
   sanitize("description").escape(),
@@ -49,11 +51,12 @@ exports.manufacturer_create_post = [
       // Data from form is valid.
       // Create a Manufacturer object with escaped and trimmed data.
       var manufacturer = new Manufacturer({
-        Name: req.body.title,
+        Name: req.body.name,
         Description: req.body.description,
       });
       manufacturer.save(function (err) {
         if (err) return next(err);
+        
         res.redirect(manufacturer.url);
       });
     }
