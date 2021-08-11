@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var ManufacturerSchema = new Schema({
  Name: { type: String, required: true, maxLength: 100 },
- Description: { type: String, required: true, maxLength: 100 }
+ Description: { type: String, required: true, maxLength: 400 }
 });
 /*
 name

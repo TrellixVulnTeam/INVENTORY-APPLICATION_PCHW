@@ -46,9 +46,9 @@ function categoryCreate(title, description, cb) {
   });
 }
 
-function manufacturerCreate(name, description, cb) {
-  manufacturerdetail = { name: name };
-  if (description != false) manufacturerdetail.description = description;
+function manufacturerCreate(Name, Description, cb) {
+  manufacturerdetail = { Name: Name };
+  if (Description != false) manufacturerdetail.Description = Description;
 
   var manufacturer = new Manufacturer(manufacturerdetail);
 
@@ -64,21 +64,21 @@ function manufacturerCreate(name, description, cb) {
 }
 
 function computerPartCreate(
-  name,
-  description,
+  Name,
+  Description,
   inStock,
-  price,
-  category,
-  manufacturer,
+  Price,
+  Category,
+  Manufacturer,
   cb
 ) {
   var computerPart = new ComputerPart({
-    name: name,
-    description: description,
+    Name: Name,
+    Description: Description,
     inStock: inStock,
-    price: price,
-    category: category,
-    manufacturer: manufacturer,
+    Price: Price,
+    Category: Category,
+    Manufacturer: Manufacturer,
   });
 
   computerPart.save(function (err) {

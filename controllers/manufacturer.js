@@ -62,3 +62,31 @@ exports.manufacturer_create_post = [
     }
   },
 ];
+// Display detail page for a specific Manufacturer.
+exports.manufacturer_detail = function (req, res, next) {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    let err = new Error("Invalid ObjectID");
+    err.status = 404;
+    return next(err);
+  }
+  async.parallel(
+    {
+      manufacturer: function(callback) {
+            Manufacturer.findById(req.params.id)
+              .exec(callback)
+        },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.Manufacturer == null) {
+        var err = new Error("Manufacturer not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("Manufacturer_detail", {
+        title: "Manufacturer Detail",
+        _Manufacturer: manufacturer,
+      });
+    }
+  );
+};

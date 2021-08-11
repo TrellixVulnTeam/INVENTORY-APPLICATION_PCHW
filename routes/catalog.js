@@ -55,9 +55,9 @@ router.get('/manufacturer/:id/update', manufacturer_controller.manufacturer_upda
 // POST request to update Manufacturer.
 router.post('/manufacturer/:id/update', manufacturer_controller.manufacturer_update_post);
 
+*/
 // GET request for one Manufacturer.
 router.get('/manufacturer/:id', manufacturer_controller.manufacturer_detail);
-*/
 // GET request for list of all Manufacturer.
 router.get('/manufacturer', manufacturer_controller.manufacturer_list);
 
