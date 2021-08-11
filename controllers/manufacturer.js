@@ -1,4 +1,5 @@
 var Manufacturer = require('../models/manufacturer');
+var ComputerPart = require("../models/computerpart");
 var async = require("async");
 var mongoose = require("mongoose");
 
@@ -63,15 +64,18 @@ exports.manufacturer_create_post = [
 // Display detail page for a specific Manufacturer.
 exports.manufacturer_detail = function (req, res, next) {
   var id = mongoose.Types.ObjectId(req.params.id);
-  
+
   async.parallel(
     {
       manufacturer: function(callback) {
             Manufacturer.findById(req.params.id)
               .exec(callback)
         },
-    },
-    function (err, results) {
+        manufacturer_parts: function(callback) {
+          ComputerPart.find({ 'manufacturer': req.params.id })
+            .exec(callback);
+        }
+    }, function (err, results) {
       if (err) return next(err);
       if (results.Manufacturer == null) {
         var err = new Error("Manufacturer not found");
@@ -80,7 +84,7 @@ exports.manufacturer_detail = function (req, res, next) {
       }
       res.render("Manufacturer_detail", {
         title: "Manufacturer Detail",
-        _Manufacturer: manufacturer,
+        _Manufacturer: results.manufacturer, Manufacturer_parts: results.Manufacturer_parts 
       });
     }
   );
