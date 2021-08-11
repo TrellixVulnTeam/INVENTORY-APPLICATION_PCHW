@@ -78,7 +78,7 @@ function computerPartCreate(
     inStock: inStock,
     Price: Price,
     Category: Category,
-    Manufacturer: Manufacturer,
+    Manufacturer: Manufacturer ,
   });
 
   computerPart.save(function (err) {
