@@ -77,14 +77,14 @@ exports.manufacturer_detail = function (req, res, next) {
         }
     }, function (err, results) {
       if (err) return next(err);
-      if (results.Manufacturer == null) {
+      if (results.manufacturer == null) {
         var err = new Error("Manufacturer not found");
         err.status = 404;
         return next(err);
       }
       res.render("Manufacturer_detail", {
         title: "Manufacturer Detail",
-        _Manufacturer: results.manufacturer, Manufacturer_parts: results.Manufacturer_parts 
+        _Manufacturer: results.manufacturer, Manufacturer_parts: results.manufacturer_parts 
       });
     }
   );
