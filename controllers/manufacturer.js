@@ -63,13 +63,7 @@ exports.manufacturer_create_post = [
 ];
 // Display detail page for a specific Manufacturer.
 exports.manufacturer_detail = function (req, res, next) {
-  var id = mongoose.Types.ObjectId(req.params.id);
-  if(id != null)
-  {
-    var err = new Error("Id not found");
-        err.status = 404;
-        return next(err);
-  }
+  var id = mongoose.Types.ObjectId(req.params.id)
   async.parallel(
     {
       manufacturer: function(callback) {
@@ -78,6 +72,8 @@ exports.manufacturer_detail = function (req, res, next) {
         },
         manufacturer_parts: function(callback) {
           ComputerPart.find({ 'manufacturer': req.params.id })
+            .populate("manufacturer")
+            .populate("category")
             .exec(callback);
         }
     }, function (err, results) {
@@ -88,7 +84,7 @@ exports.manufacturer_detail = function (req, res, next) {
         return next(err);
       }
       res.render("Manufacturer_detail", {
-        title: "Manufacturer Detail",
+        title: "Manufacturer detail",
         _Manufacturer: results.manufacturer, Manufacturer_parts: results.manufacturer_parts 
       });
     }
