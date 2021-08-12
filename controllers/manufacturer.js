@@ -63,7 +63,6 @@ exports.manufacturer_create_post = [
 ];
 // Display detail page for a specific Manufacturer.
 exports.manufacturer_detail = function (req, res, next) {
-  var id = mongoose.Types.ObjectId(req.params.id)
   async.parallel(
     {
       manufacturer: function(callback) {
