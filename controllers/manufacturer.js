@@ -64,7 +64,12 @@ exports.manufacturer_create_post = [
 // Display detail page for a specific Manufacturer.
 exports.manufacturer_detail = function (req, res, next) {
   var id = mongoose.Types.ObjectId(req.params.id);
-
+  if(id == null)
+  {
+    var err = new Error("Id not found");
+        err.status = 404;
+        return next(err);
+  }
   async.parallel(
     {
       manufacturer: function(callback) {
