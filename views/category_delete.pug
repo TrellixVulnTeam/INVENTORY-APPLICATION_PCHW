@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  p Are you sure you want to delete this category?
+  ul
+    li= category.title
+    p= category.description
+    br
+    p parts
+
+  ul
+    each part in category_parts
+       li
+        a(href=part.url) #{part.Name}
+        |  (#{part.Description})
+    else
+      li There are no parts.
+  button.btn.btn-primary(type='submit') Delete
