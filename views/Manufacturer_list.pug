@@ -5,7 +5,14 @@ block content
 
   ul
     each manuf in manufacturer_list
-      li= manuf.Name
-
+      li
+       a(href=manuf.url) #{manuf.Name}
+       |  (#{manuf.Description})
     else
       li There are no manufacturers.
+  ul
+    li 
+      a(href='/catalog/manufacturer/create') Create manufacturer
+      br
+    li
+      a(href='/') Go Home

@@ -10,6 +10,7 @@ var mongoose = require("mongoose");
 
 // Display list of all ComputerPart.
 exports.computerparts_list = function (req, res, next) {
+
   ComputerPart.find().exec(function (err, list_computerparts) {
     if (err) return next(err);
 
@@ -70,6 +71,8 @@ exports.computerparts_create_get = function(req, res, next) {
         if (err) { return next(err); }
         res.render('computerparts_form', { title: 'Create Computer Parts', Manufacturers: results.Manufacturers, Categories: results.Categories });
     });
+
+};
 //t
 // Handle Category create on POST.
 exports.computerparts_create_post = [

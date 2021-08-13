@@ -19,7 +19,7 @@ exports.category_list = function (req, res, next) {
   });
 };
 
-// Display detail page for a specific Genre.
+// Display detail page for a specific Category.
 exports.category_detail = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.id);
 
@@ -94,77 +94,52 @@ exports.category_create_post = [
 
 // Display Category delete form on GET.
 exports.category_delete_get = function (req, res, next) {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    let err = new Error("Invalid ObjectID");
-    err.status = 404;
-    return next(err);
-  }
-  async.parallel(
-    {
-      category: function (callback) {
-        Category.findById(req.params.id).exec(callback);
-      },
-      category_parts: function (callback) {
-        ComputerPart.find({ category: req.params.id }).exec(callback);
-      },
-    },
-    function (err, results) {
-      if (err) return next(err);
-
-      if (results.category == null) {
-        let err = new Error("Category not found");
-        err.status = 404;
-        return next(err);
-      }
-
-      res.render("category_delete", {
-        title: "Delete Category: " + results.category.title,
-        category: results.category,
-        category_parts: results.category_parts,
-      });
-    }
-  );
+  async.parallel({
+        category: function(callback) {
+            Category.findById(req.params.id).exec(callback)
+        },
+        category_parts: function(callback) {
+          ComputerPart.find({ 'category': req.params.id }).exec(callback)
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.category ==null) { // No results.
+            res.redirect('/catalog/category');
+        }
+        // Successful, so render.
+        res.render('category_delete', { title: 'Delete Category', category: results.category, category_parts: results.category_parts } );
+    });
 };
 
 // Handle Category delete on POST.
 exports.category_delete_post = function (req, res, next) {
-  if (req.body.password != process.env.ADMIN_PASSWORD) {
-    let err = new Error("The password you entered is incorrect.");
-    err.status = 401;
-    return next(err);
-  } else {
-    async.parallel(
-      {
-        category: function (callback) {
-          Category.findById(req.params.id).exec(callback);
-        },
-        category_parts: function (callback) {
-          ComputerPart.find({ category: req.params.id }).exec(callback);
-        },
-      },
-      function (err, results) {
-        if (err) return next(err);
 
+   async.parallel({
+        category: function(callback) {
+          Category.findById(req.params.id).exec(callback)
+        },
+        category_parts: function(callback) {
+             ComputerPart.find({ 'category': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
         if (results.category_parts.length > 0) {
-          res.render("category_delete", {
-            title: "Delete Category: " + results.category.title,
-            category: results.category,
-            category_parts: results.category_parts,
-          });
-          return;
-        } else {
-          Category.findByIdAndRemove(
-            req.body.categoryid,
-            function deleteCategory(err) {
-              if (err) return next(err);
-
-              res.redirect("/categories");
-            }
-          );
+            // Category has parts. Render in same way as for GET route.
+            res.render('category_parts', { title: 'Delete Category', title: "Delete Category: " + results.category.title,
+        category: results.category,
+        category_parts: results.category_parts, } );
+            return;
         }
-      }
-    );
-  }
+        else {
+            // Category has no books. Delete object and redirect to the list of authors.
+            Category.findByIdAndRemove(req.body.categoryid, function deleteCategory(err) {
+                if (err) { return next(err); }
+                // Success - go to category list
+                res.redirect('/catalog/category')
+            })
+        }
+    });
 };
 
 // Display Category update form on GET.

@@ -2,23 +2,36 @@ extends layout
 
 block content
   h1= title
+
   form(method='POST' action='')
     div.form-group
-      label(for='name') Computer Parts Name:
-      input#name.form-control(type='text' placeholder='Computer Parts Name' name='name' required='true')
+      label(for='title') Title:
+      input#title.form-control(type='text', placeholder='Name of computer part' name='title' required='true' value=(undefined===computerpart ? '' : computerpart.Name) )
+    div.form-group
+      label(for='manufacturer') Manufacturers:
+      select#manufacturer.form-control(type='select', placeholder='Select Manufacturer' name='manufacturer' required='true' )
+        - Manufacturers.sort(function(a, b) {let textA = a.Name.toUpperCase(); let textB = b.Name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+        for manufact in Manufacturers
+          if computerpart
+            option(value=manufact._id selected=(manufact._id.toString()===computerpart.manufact._id.toString() ? 'selected' : false) ) #{manufact.Name}
+          else
+            option(value=manufact._id) #{manufact.Name}
     div.form-group
       label(for='description') Description:
-      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : category.description) required='true')
+      input#description.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===computerpart ? '' : computerpart.Description) required='true')
     div.form-group
-      label(for='category') Category:
-      select#category.form-control(type='select', placeholder='Select category' name='category' required='true' )
-        - list_categories.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
-        for category in list_categories
-          if computerpart
-            option(value=category._id selected=(category._id.toString()===computerpart.category._id.toString() ? 'selected' : false) ) #{category.title}
-          else
-            option(value=category._id) #{category.name}
+      label(for='price') Price:
+      input#price.form-control(type='text', placeholder='Price' name='price' value=(undefined===computerpart ? '' : computerpart.Price) required='true')
     div.form-group
-      label(for='category') Manufacturer:
-      input#category.form-control(type='text', placeholder='Category' name='category' required='true')
+      label Categories:
+      div
+        for categ in Categories
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox', name='Categories', id=categ._id, value=categ._id, checked=categ.checked )
+            label(for=categ._id) #{categ.title}
     button.btn.btn-primary(type='submit') Submit
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

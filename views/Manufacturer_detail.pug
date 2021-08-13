@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Manufacturer: #{_Manufacturer.Name}
+  p Description: #{_Manufacturer.Description}
+
+  div(stlye='margin-left:20px;margin-top:20px')
+
+    h4 Parts
+
+    d1
+      each part in Manufacturer_parts
+        dt
+          a(href=part.url) #{part.Name}
+        dd #{part.Description}
+
+      else
+        p This manufacturer has no parts.
+  hr
+  p
+    a(href=_Manufacturer.url+'/delete') Delete manufacturer
+    br
+    br
+    a(href=_Manufacturer.url+'/update') Update manufacturer

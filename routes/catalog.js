@@ -35,14 +35,14 @@ router.get('/computerparts', computerparts_controller.computerparts_list);
 
 /// manufacturer ROUTES ///
 //We have not handled these controllers yet so comment them out
-/*
+
 // GET request for creating manufacturer. NOTE This must come before route for id (i.e. display manufacturer).
 
 router.get('/manufacturer/create', manufacturer_controller.manufacturer_create_get);
-/*
 // POST request for creating Manufacturer.
 router.post('/manufacturer/create', manufacturer_controller.manufacturer_create_post);
 
+/*
 // GET request to delete Manufacturer.
 router.get('/manufacturer/:id/delete', manufacturer_controller.manufacturer_delete_get);
 
@@ -55,9 +55,9 @@ router.get('/manufacturer/:id/update', manufacturer_controller.manufacturer_upda
 // POST request to update Manufacturer.
 router.post('/manufacturer/:id/update', manufacturer_controller.manufacturer_update_post);
 
+*/
 // GET request for one Manufacturer.
 router.get('/manufacturer/:id', manufacturer_controller.manufacturer_detail);
-*/
 // GET request for list of all Manufacturer.
 router.get('/manufacturer', manufacturer_controller.manufacturer_list);
 
